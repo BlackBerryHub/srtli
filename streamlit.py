@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 import time
-from playsound import playsound  # Import the playsound library for sound effects
 
 # Global variables for tracking progress and score
 progress = 0
@@ -16,11 +15,6 @@ tasks = [
 
 # Shuffle the tasks order
 random.shuffle(tasks)
-
-def play_sound(is_correct):
-    # Play a sound effect based on whether the answer is correct
-    sound_file = "correct.mp3" if is_correct else "incorrect.mp3"
-    playsound(sound_file)
 
 def english_quiz():
     global progress, score
@@ -69,14 +63,12 @@ def fill_in_the_blanks():
     
     if num_correct == len(options):
         st.success("Well done! All answers are correct.")
-        play_sound(True)  # Play correct answer sound
         st.write("🎉👏")
     else:
         st.warning("You have some incorrect answers. Here are the explanations:")
         for blank, correct_answer in correct_answers.items():
             if user_answers[blank] != correct_answer:
                 st.write(f"For the {blank} blank, the correct answer is '{correct_answer}'.")
-        play_sound(False)  # Play incorrect answer sound
         st.write("😔")
 
 def multiple_choice():
@@ -99,11 +91,9 @@ def multiple_choice():
     if user_choice == correct_answer:
         score += 1
         st.success("Correct!")
-        play_sound(True)  # Play correct answer sound
         st.write("🎉👏")
     else:
         st.error(f"Oops! The correct answer is {correct_answer}.")
-        play_sound(False)  # Play incorrect answer sound
         st.write("😔")
 
 def sentence_rearrangement():
@@ -119,11 +109,9 @@ def sentence_rearrangement():
     if user_order == " ".join(words):
         score += 1
         st.success("Well done! You rearranged the sentence correctly.")
-        play_sound(True)  # Play correct answer sound
         st.write("🎉👏")
     else:
         st.error("Oops! Try rearranging the words again.")
-        play_sound(False)  # Play incorrect answer sound
         st.write("😔")
 
 def show_summary():
